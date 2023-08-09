@@ -73,9 +73,6 @@ const UserForm = (props) => {
             <input type="checkbox" id="isActive" name="isActive" checked={newUser.isActive} onChange={handleInputChange} />
             {newUser.isActive && <div>Product is Activated!</div>}
           </div>
-
-
-
           <div>
             <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} >{newUser.id ? 'Update' : 'Add'} </button>
             <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '57px' }} onClick={props.closeModal}>Cancel</button>
