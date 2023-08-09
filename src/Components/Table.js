@@ -31,7 +31,7 @@ const Table = (props) => {
 
                                 <td style={tableCellStyle}>
                                     <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} onClick={() => props.updateUser(newUse.id, newUse)} >Edit</button>
-                                    <button  style={{ backgroundColor: '#e62f17', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft:20 }} onClick={() => props.deleteUser(newUse.id)}>Delete</button>
+                                    <button  style={{ backgroundColor: '#e62f17', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft:10 }} onClick={() => props.deleteUser(newUse.id)}>Delete</button>
                                 </td>
                             </tr>
                         ))
