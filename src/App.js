@@ -62,10 +62,14 @@ function App() {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
           },
           content: {
+          
             border: 'none',
             borderRadius: '8px',
-            maxWidth: '300px',
+        
+            width:'330px',
             margin: 'auto',
+            maxHeight:490,
+            marginTop:45
           },
         }}
       >
