@@ -50,7 +50,8 @@ function App() {
 
 
   return (
-    <div><h2 style={{textAlign:'center'}}>Create Read Update Delete</h2>
+    <div>
+         <h2 style={{textAlign:'center'}}>Create Read Update Delete</h2>
       <button onClick={openModal} style={{ backgroundColor: '#32a852', color: 'white', padding: '8px 26px ', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: 60, marginTop: 30, }} >Add</button>
 
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}
