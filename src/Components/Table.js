@@ -3,6 +3,7 @@ import React from 'react';
 const Table = (props) => {
     return (
         <div >
+        <br/>
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                 <thead>
                     <tr>
