@@ -59,4 +59,3 @@ const tableCellStyle = {
 };
 
 export default Table;
-
