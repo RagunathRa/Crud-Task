@@ -20,7 +20,7 @@ const UserForm = (props) => {
 
 
   const initialFormData = {
-    // id: null,
+    id: null,
     productname: '',
     price: '',
     oldprice: '',
@@ -56,20 +56,19 @@ const postData = () => {
         <form onSubmit={ async (event) => {
           event.preventDefault();
           if (!newUser.productname || !newUser.price || !newUser.oldprice || !newUser.category || !newUser.description) return;
-          try {
+          
             if (newUser.id) {
-              await props.updateUser(newUser.id, newUser);
+              props.updateUser(newUser.id, newUser);
+           
             } else {
-              await props.addUser(newUser);
+              props.addUser(newUser);
               props.setCurrentProduct(initialFormData);
             }
         
             props.closeModal();
-          } catch (error) {
-            console.error("Error:", error);
           }
          
-        }
+        
           
         }>
           <div style={{ marginBottom: '10px' }}>
@@ -127,4 +126,6 @@ const postData = () => {
 };
 
 export default UserForm;
+
+
 
