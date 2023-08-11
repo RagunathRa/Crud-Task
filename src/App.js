@@ -6,7 +6,7 @@ import Table from './Components/Table';
 import Modal from 'react-modal';
 
 
-const  initialFormData = { productname: '', price: "", oldprice: "", description: '', isActive: false, categorytype: '' };
+const  initialFormData = { id:'null',productname: '', price: "", oldprice: "", description: '', isActive: false, category: '' };
 
 function App() {
  
@@ -16,7 +16,7 @@ function App() {
 
   const openModal = () => {
     setIsModalOpen(true);
-
+    setCurrentProduct( initialFormData);
 
   };
 
@@ -42,6 +42,7 @@ function App() {
   };
 
   const deleteUser = (id) => {
+    
     axios
       .delete(`https://64d4e520b592423e4694d902.mockapi.io/R1/product/${id}`)
       .then(() => {
@@ -68,20 +69,20 @@ function App() {
   
   
   const updateUser = (id, updatedUser) => {
-    setIsModalOpen(true);
+ 
     axios
       .put(`https://64d4e520b592423e4694d902.mockapi.io/R1/product/${id}`, updatedUser)
       .then(() => {
-        
+       
         setRows(rows.map(user => (user.id === id ? updatedUser : user)));
        
-          console.log("hlo");
         setCurrentProduct(updatedUser);
     
       })
       .catch(error => {
         console.error("Error updating user:", error);
       });
+      setIsModalOpen(true)
   };
 
   return (
