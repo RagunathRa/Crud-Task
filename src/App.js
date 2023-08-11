@@ -1,53 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
+import axios
+ from 'axios';
 import UserForm from './Components/UserForm';
 import Table from './Components/Table';
 import Modal from 'react-modal';
 
-const userData = [
-  { id: "1", productname: 'Banana', price: 20, oldprice: 15, description: ' Improve health and immunity', category: 'Vegetables' },
-  { id: "2", productname: 'Choco', price: 10, oldprice: 5, description: 'A confectionery made with a rich chocolate', category: 'Dairy & creams' },
-  { id: "3", productname: 'Fruits& Nuts', price: 40, oldprice: 20, description: ' single-seeded fruits that have high oil content', category: 'Packages Food' }
-];
 
-
-const intialFromData = { id: null, productname: '', price: "", oldprice: "", description: '', isActive: false, categorytype: '' };
+const  initialFormData = { productname: '', price: "", oldprice: "", description: '', isActive: false, categorytype: '' };
 
 function App() {
-  const [newUser, setNewUser] = useState(userData);
-  const [currentProduct, setCurrentProduct] = useState(intialFromData);
+ 
+  const [currentProduct, setCurrentProduct] = useState( initialFormData);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rows, setRows] = useState([]);
 
   const openModal = () => {
     setIsModalOpen(true);
-    setCurrentProduct(intialFromData)
+
 
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setCurrentProduct( initialFormData);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios
+      .get(`https://64d4e520b592423e4694d902.mockapi.io/R1/product`)
+      .then((response) => {
+        setRows(response.data);
+        console.log("my data");
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  };
 
   const deleteUser = (id) => {
-    setNewUser(newUser.filter(user => user.id !== id));
+    axios
+      .delete(`https://64d4e520b592423e4694d902.mockapi.io/R1/product/${id}`)
+      .then(() => {
+        setRows(rows.filter(user => user.id !== id));
+        
+      })
+      .catch(error => {
+        console.error("Error deleting user:", error);
+      });
   };
-
   const addUser = (user) => {
-    user.id = (newUser.length + 1).toString();
-    setNewUser([...newUser, user]);
-    setIsModalOpen(false);
+    axios
+      .post(`https://64d4e520b592423e4694d902.mockapi.io/R1/product`, user)
+      .then(response => {
+        user.id = (rows.length + 1).toString();
+        setRows([...rows, response.data]);
+        setIsModalOpen(false);
+      })
+      .catch(error => {
+        console.error("Error adding user:", error);
+      });
   };
 
-
-
+  
+  
   const updateUser = (id, updatedUser) => {
     setIsModalOpen(true);
-    setNewUser(newUser.map(user => (user.id === id ? updatedUser : user)));
-    setCurrentProduct(updatedUser);
-
+    axios
+      .put(`https://64d4e520b592423e4694d902.mockapi.io/R1/product/${id}`, updatedUser)
+      .then(() => {
+        
+        setRows(rows.map(user => (user.id === id ? updatedUser : user)));
+       
+          console.log("hlo");
+        setCurrentProduct(updatedUser);
+    
+      })
+      .catch(error => {
+        console.error("Error updating user:", error);
+      });
   };
-
-
 
   return (
     <div>
@@ -74,16 +109,19 @@ function App() {
         }}
       >
         <UserForm
-          newUser={newUser}
+      
           currentProduct={currentProduct}
           setCurrentProduct={setCurrentProduct}
           addUser={addUser}
           updateUser={updateUser}
           closeModal={closeModal}
+          rows={rows} 
+          setRows={setRows}
         /></Modal>
-      <Table newUser={newUser} setCurrentProduct={setCurrentProduct} updateUser={updateUser} addUser={addUser} deleteUser={deleteUser} />
+      <Table rows={rows}   setCurrentProduct={setCurrentProduct} updateUser={updateUser} addUser={addUser} deleteUser={deleteUser}  setRows={setRows}/>
     </div>
   );
 }
 
 export default App;
+
