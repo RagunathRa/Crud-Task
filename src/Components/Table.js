@@ -18,8 +18,8 @@ const Table = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.newUser.length > 0 ? (
-                        props.newUser.map((newUse, index) => (
+                    {props.rows.length > 0 ? (
+                        props.rows.map((newUse, index) => (
                             <tr key={newUse.id} >
                                 <td style={tableCellStyle}>{newUse.id}</td>
                                 <td style={tableCellStyle}>{newUse.productname}</td>
@@ -59,3 +59,4 @@ const tableCellStyle = {
 };
 
 export default Table;
+
