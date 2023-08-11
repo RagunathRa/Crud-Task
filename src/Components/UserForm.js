@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const UserForm = (props) => {
   const [newUser, setNewUser] = useState(props.currentProduct);
@@ -17,25 +18,60 @@ const UserForm = (props) => {
   };
 
 
-  const intialFromData = {
-    id: null, productname: '', price: '', oldprice: '', description: '', category: '',
-    isActive: false
-  };
 
+  const initialFormData = {
+    // id: null,
+    productname: '',
+    price: '',
+    oldprice: '',
+    description: '',
+    category: '',
+    isActive: false,
+  };
+  
+const postData = () => {
+
+      const data = {
+        
+        productname: newUser.productname, 
+      price: newUser.price,               
+      oldprice: newUser.oldprice,         
+      category: newUser.category,         
+      description: newUser.description,   
+      isActive: newUser.isActive 
+      };
+
+      axios.post(`https://64d4e520b592423e4694d902.mockapi.io/R1/product`, data)
+        .then(response => {
+          console.log("Post request successful:", response.data);
+        })
+        .catch(error => {
+          console.error("Error posting data:", error);
+        });
+    };
+    
   return (
     <div>
       <div style={{ border: '1px solid #ccc', borderRadius: '5px', width: 265, padding: '10px', backgroundColor: '#f9f9f9' }}>
-        <form onSubmit={(event) => {
+        <form onSubmit={ async (event) => {
           event.preventDefault();
           if (!newUser.productname || !newUser.price || !newUser.oldprice || !newUser.category || !newUser.description) return;
-          if (newUser.id) {
-            props.updateUser(newUser.id, newUser);
+          try {
+            if (newUser.id) {
+              await props.updateUser(newUser.id, newUser);
+            } else {
+              await props.addUser(newUser);
+              props.setCurrentProduct(initialFormData);
+            }
+        
             props.closeModal();
-          } else {
-            props.addUser(newUser);
-            props.setCurrentProduct(intialFromData);
+          } catch (error) {
+            console.error("Error:", error);
           }
-        }}>
+         
+        }
+          
+        }>
           <div style={{ marginBottom: '10px' }}>
             <label htmlFor="name">Product Name:</label><br />
             <input type="text" placeholder="Product Name" id="name" name="productname" value={newUser.productname} onChange={handleInputChange} />
@@ -61,6 +97,8 @@ const UserForm = (props) => {
                   {option}
                 </option>
               ))}
+
+        
             </select>
           </div>
           <div style={{ marginBottom: '10px' }}>
@@ -77,7 +115,9 @@ const UserForm = (props) => {
 
 
           <div>
-            <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} >{newUser.id ? 'Update' : 'Add'} </button>
+            <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            onClick={postData}
+            >{newUser.id ? 'Update' : 'Add'} </button>
             <button style={{ backgroundColor: '#007bff', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '57px' }} onClick={props.closeModal}>Cancel</button>
           </div>
         </form>
@@ -87,3 +127,4 @@ const UserForm = (props) => {
 };
 
 export default UserForm;
+
