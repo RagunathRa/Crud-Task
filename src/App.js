@@ -6,7 +6,7 @@ import Table from './Components/Table';
 import Modal from 'react-modal';
 
 
-const  initialFormData = { id:'null',productname: '', price: "", oldprice: "", description: '', isActive: false, category: '' };
+const  initialFormData = { id:null,productname: '', price: "", oldprice: "", description: '', isActive: false, category: '' };
 
 function App() {
  
@@ -125,4 +125,3 @@ function App() {
 }
 
 export default App;
-
