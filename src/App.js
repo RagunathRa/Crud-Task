@@ -25,16 +25,18 @@ function App() {
     setCurrentProduct( initialFormData);
   };
 
+
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [rows]);
 
   const fetchData = () => {
     axios
       .get(`https://64d4e520b592423e4694d902.mockapi.io/R1/product`)
       .then((response) => {
         setRows(response.data);
-        console.log("my data");
+        v
       })
       .catch(error => {
         console.error("Error fetching data:", error);
