@@ -7,7 +7,7 @@ const Table = (props) => {
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                 <thead>
                     <tr>
-                        <th style={tableHeaderStyle}>Id</th>
+                      
                         <th style={tableHeaderStyle}>Product Name</th>
                         <th style={tableHeaderStyle}>Price</th>
                         <th style={tableHeaderStyle}>Old Price</th>
@@ -21,7 +21,7 @@ const Table = (props) => {
                     {props.rows.length > 0 ? (
                         props.rows.map((newUse, index) => (
                             <tr key={newUse.id} >
-                                <td style={tableCellStyle}>{newUse.id}</td>
+                               
                                 <td style={tableCellStyle}>{newUse.productname}</td>
                                 <td style={tableCellStyle}>{newUse.price}</td>
                                 <td style={tableCellStyle}>{newUse.oldprice}</td>
@@ -41,6 +41,7 @@ const Table = (props) => {
                         </tr>
                     )}
                 </tbody>
+                      
             </table>
         </div>
     );
